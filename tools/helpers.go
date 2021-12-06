@@ -27,3 +27,21 @@ func ToIntSlice(filename string) ([]int,error)  {
 	}
 	return res,nil
 }
+
+func ToStringSlice(filename string) ([]string,error) {
+	b,err := ioutil.ReadFile(filename)
+	if err != nil {
+		return nil, err
+	}
+
+	scanner := bufio.NewScanner(bytes.NewBuffer(b))
+
+	scanner.Split(bufio.ScanLines)
+	var res []string
+
+	for scanner.Scan() {
+
+		res = append(res,scanner.Text())
+	}
+	return res,nil
+}
